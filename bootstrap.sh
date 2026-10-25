@@ -26,7 +26,7 @@ nmcli connection up eno1
 # Create the administration account with full sudo access
 echo "$USERNAME will be the primary account holder"
 useradd -m -G wheel "$USERNAME" 
-chpasswd "$USERNAME":"$PASSWORD"
+echo "$USERNAME":"$PASSWORD" | chpasswd
 #
 #
 #
