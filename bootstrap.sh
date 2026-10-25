@@ -6,10 +6,13 @@ set -e
 # Define the env variables
 HOSTNAME=rhel9.example.com
 USERNAME=admin
+PASSWORD=welcome2027
 
 # Set the device hostname
 echo "Welcome, lets begin by setting the name of your device!" 
 hostnamectl set-hostname "$HOSTNAME"
+#
+#
 #
 #
 # Set IPv4 connection
@@ -18,9 +21,14 @@ nmcli connection modify eno1 ipv4.method auto
 nmcli connection up eno1
 #
 #
+#
+#
 # Create the administration account with full sudo access
 echo "$USERNAME will be the primary account holder"
 useradd -m -G wheel "$USERNAME" 
+chpasswd "$USERNAME":"$PASSWORD"
+#
+#
 #
 #
 #Create SSH Key for admin user
@@ -33,9 +41,15 @@ chown -R "$USERNAME":"$USERNAME" /home/"$USERNAME"
 #
 #
 #
+#
+#
+#
 # Create SSH Key for admin user
 echo 'Now lets create the users ssh directory & adjust the permissions'
 ssh-keygen -t ed25519 -N "" -f /home/"$USERNAME"/.ssh/"$USERNAME"_key
+#
+#
+#
 #
 #
 # Preinstall these packages 
